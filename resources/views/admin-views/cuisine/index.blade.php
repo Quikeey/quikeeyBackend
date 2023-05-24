@@ -253,7 +253,7 @@
                                 <div class="btn--container">
                                     <a class="btn btn-sm btn--primary btn-outline-primary action-btn"
                                     data-id={{ $cu['id'] }} title="{{ translate('messages.edit') }}"
-                                    onClick="javascript:showMyModal('{{ $cu['id'] }}', '{{ $cu->name }}', {{ $img_src }}')"
+                                    onClick="javascript:showMyModal('{{ $cu['id'] }}', '{{ $cu->name }}', '{{ $cu->ar_name }}', {{ $img_src }}')"
                                     ><i class="tio-edit"></i>
                                     </a>
                                     <a class="btn btn-sm btn--danger btn-outline-danger action-btn" href="javascript:"
