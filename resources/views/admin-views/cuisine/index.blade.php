@@ -251,11 +251,11 @@
 
                             <td>
                                 <?php
-                                $ar_name = DB::table('translations')->where('translationable_type', 'App\Models\Cuisine')->where('translationable_id', $cu['id'])->where('locale', 'ar')->where('key', 'name')->pluck('value'); ?>
+                                $ar_name = DB::table('translations')->where('translationable_type', 'App\Models\Cuisine')->where('translationable_id', $cu['id'])->where('locale', 'ar')->where('key', 'name')->value('value'); ?>
                                 <div class="btn--container">
                                     <a class="btn btn-sm btn--primary btn-outline-primary action-btn"
                                     data-id={{ $cu['id'] }} title="{{ translate('messages.edit') }}"
-                                    onClick="javascript:showMyModal('{{ $cu['id'] }}', '{{ $cu->name }}', '{{$ar_name[0]}}', '{{ $img_src }}')"
+                                    onClick="javascript:showMyModal('{{ $cu['id'] }}', '{{ $cu->name }}', '{{$ar_name}}', '{{ $img_src }}')"
                                     ><i class="tio-edit"></i>
                                     </a>
                                     <a class="btn btn-sm btn--danger btn-outline-danger action-btn" href="javascript:"
