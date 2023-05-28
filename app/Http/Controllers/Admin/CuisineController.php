@@ -73,7 +73,6 @@ class CuisineController extends Controller
 
     public function update(Request $request)
     {
-        return $request->all();
         $request->validate([
             'name' => 'required|max:100|unique:cuisines,name,'.$request->id,
             'image' => 'nullable|max:2048',
@@ -91,7 +90,7 @@ class CuisineController extends Controller
 
         $translation = Translation::where('translationable_type', 'App\Models\Cuisine')->where('translationable_id', $request->id)->where('locale', 'ar')->where('key', 'name')->first();
         $translation->update([
-            'value' => $request->name_ar,
+            'value' => $request->ar_name,
         ]);
 
         Toastr::success(translate('messages.Cuisine_updated_successfully'));
