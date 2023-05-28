@@ -19,8 +19,7 @@ class CuisineConbtroller extends Controller
         foreach($Cuisines as $cu)
         {
             $ar_name = DB::table('translations')->where('translationable_type', 'App\Models\Cuisine')->where('translationable_id', $cu->id)->where('locale', 'ar')->where('key', 'name')->value('value');
-
-            array_push($cu, ['ar_name' => $ar_name]);
+            $cu->ar_name = $ar_name;
             array_push($arr, $cu);
         }
         return response()->json( ['Cuisines' => $arr], 200);
