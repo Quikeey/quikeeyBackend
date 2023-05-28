@@ -7,6 +7,7 @@ use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use App\CentralLogics\Helpers;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class CuisineConbtroller extends Controller
@@ -14,7 +15,15 @@ class CuisineConbtroller extends Controller
     public function get_all_cuisines()
     {
         $Cuisines = Cuisine::where('status',1)->get();
-        return response()->json( ['Cuisines' => $Cuisines->getLocale()], 200);
+        $arr = [];
+        foreach($Cuisines as $cu)
+        {
+            $ar_name = DB::table('translations')->where('translationable_type', 'App\Models\Cuisine')->where('translationable_id', $cu->id)->where('locale', 'ar')->where('key', 'name')->value('value');
+
+            array_push($cu, ['ar_name' => $ar_name]);
+            array_push($arr, $cu);
+        }
+        return response()->json( ['Cuisines' => $arr], 200);
     }
     public function get_restaurants(Request $request)
     {
