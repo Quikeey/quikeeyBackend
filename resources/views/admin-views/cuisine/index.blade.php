@@ -250,12 +250,13 @@
                             </td>
 
                             <td>
-                                @php
-                                ($ar_name = DB::table('translations')->where('translationable_type', 'App\Models\Cuisine')->where('translationable_id', $cu['id'])->where('locale', 'ar')->where('key', 'name')->first())
+                                <?php
+                                $ar_name = DB::table('translations')->where('translationable_type', 'App\Models\Cuisine')->where('translationable_id', $cu['id'])->where('locale', 'ar')->where('key', 'name')->pluck('value'); ?>
+                                {{$ar_name}}
                                 <div class="btn--container">
                                     <a class="btn btn-sm btn--primary btn-outline-primary action-btn"
                                     data-id={{ $cu['id'] }} title="{{ translate('messages.edit') }}"
-                                    onClick="javascript:showMyModal('{{ $cu['id'] }}', '{{ $cu->name }}', '{{$ar_name}}' , '{{ $img_src }}')"
+                                    onClick="javascript:showMyModal('{{ $cu['id'] }}', '{{ $cu->name }}', {{ $img_src }}, {{$ar_name}}')"
                                     ><i class="tio-edit"></i>
                                     </a>
                                     <a class="btn btn-sm btn--danger btn-outline-danger action-btn" href="javascript:"
@@ -311,7 +312,7 @@
                         @method('put')
                         <input type="hidden" name="id" id="id" />
                         <input class="form-control" name='name' id="name" required type="text">
-                        <input class="form-control" name='ar_name' id="ar_name" type="text">
+                        <input class="form-control" name='ar_name' id="ar_name" required type="text">
 
                         {{-- <div class="col-md-6 col-lg-6"> --}}
                             <div class="form-group mt-5">
@@ -395,10 +396,9 @@
     </script>
 
     <script>
-        function showMyModal(id, name, ar_name, image) {
+        function showMyModal(id, name, image) {
             $(".modal-body #id").val(id);
             $(".modal-body #name").val(name);
-            $(".modal-body #ar_name").val(ar_name);
             $(".modal-body #viewer2").attr("src", image);
             $('#exampleModal').modal('show');
         }
