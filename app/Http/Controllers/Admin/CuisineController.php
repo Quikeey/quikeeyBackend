@@ -88,6 +88,11 @@ class CuisineController extends Controller
         $cuisine->image = $request->has('image') ? Helpers::update('cuisine/', $cuisine->image, 'png', $request->file('image')) : $cuisine->image;
         $cuisine->save();
 
+        $translation = Translation::where('translationable_type', 'App\Models\Cuisine')->where('translationable_id', $request->id)->where('locale', 'ar')->where('key', 'name')->first();
+        $translation->update([
+            'value' => $request->name_ar,
+        ]);
+
         Toastr::success(translate('messages.Cuisine_updated_successfully'));
         return back();
     }
