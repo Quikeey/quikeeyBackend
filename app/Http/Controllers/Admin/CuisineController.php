@@ -52,13 +52,19 @@ class CuisineController extends Controller
         $cuisine->image = $request->has('image') ? Helpers::upload('cuisine/', 'png', $request->file('image')) : 'def.png';
         $cuisine->save();
 
-        Translation::create([
-            'translationable_type' => 'App\Models\Cuisine',
-            'translationable_id' => $cuisine->id,
-            'locale' => 'ar',
-            'key' => 'name',
-            'value' => $request->ar_name,
-        ]);
+        $data = [];
+        foreach ($request->lang as $index => $key) {
+            if ($request->name[$index] && $key != 'en') {
+                array_push($data, array(
+                    'translationable_type' => 'App\Models\Cuisine',
+                    'translationable_id' => $cuisine->id,
+                    'locale' => $key,
+                    'key' => 'name',
+                    'value' => $request->name[$index],
+                ));
+            }
+        }
+        Translation::insert($data);
 
         Toastr::success(translate('messages.Cuisine_added_successfully'));
         return back();
