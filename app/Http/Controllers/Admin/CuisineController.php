@@ -73,6 +73,7 @@ class CuisineController extends Controller
 
     public function update(Request $request)
     {
+        return $request->all();
         $request->validate([
             'name' => 'required|max:100|unique:cuisines,name,'.$request->id,
             'image' => 'nullable|max:2048',
