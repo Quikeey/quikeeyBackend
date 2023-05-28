@@ -253,7 +253,7 @@
                                 <div class="btn--container">
                                     <a class="btn btn-sm btn--primary btn-outline-primary action-btn"
                                     data-id={{ $cu['id'] }} title="{{ translate('messages.edit') }}"
-                                    onClick="javascript:showMyModal('{{ $cu['id'] }}', '{{ $cu->name }}', '{{ $cu->ar_name }}', {{ $img_src }}')"
+                                    onClick="javascript:showMyModal('{{ $cu['id'] }}', '{{ $cu->name }}', '{{ $cu->ar_name }}', '{{ $img_src }}')"
                                     ><i class="tio-edit"></i>
                                     </a>
                                     <a class="btn btn-sm btn--danger btn-outline-danger action-btn" href="javascript:"
@@ -393,9 +393,10 @@
     </script>
 
     <script>
-        function showMyModal(id, name, image) {
+        function showMyModal(id, name, ar_name, image) {
             $(".modal-body #id").val(id);
             $(".modal-body #name").val(name);
+            $(".modal-body #ar_name").val(ar_name);
             $(".modal-body #viewer2").attr("src", image);
             $('#exampleModal').modal('show');
         }
