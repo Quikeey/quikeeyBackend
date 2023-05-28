@@ -331,7 +331,6 @@
                                 <div class="form-group">
                                     <label class="input-label"
                                         for="{{ $lang }}_name">{{ translate('messages.name') }}
-                                        {{-- ({{ strtoupper($lang) }}) --}}
                                     </label>
                                     <input type="text" name="name[]" id="{{ $lang }}_name" class="form-control"
                                         placeholder="{{ translate('messages.new_food') }}"
