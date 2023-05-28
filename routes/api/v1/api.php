@@ -242,7 +242,7 @@ Route::group(['namespace' => 'Api\V1', 'middleware'=>['localization','react']], 
         Route::get('get_restaurants/', 'CuisineConbtroller@get_restaurants');
     });
 
-    Route::group(['prefix' => 'customer', 'middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'customer'], function () {
         Route::get('notifications', 'NotificationController@get_notifications');
         Route::get('info', 'CustomerController@info');
         Route::get('update-zone', 'CustomerController@update_zone');

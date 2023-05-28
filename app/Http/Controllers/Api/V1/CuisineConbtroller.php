@@ -14,7 +14,7 @@ class CuisineConbtroller extends Controller
     public function get_all_cuisines()
     {
         $Cuisines = Cuisine::where('status',1)->get();
-        return response()->json( ['Cuisines' => $Cuisines], 200);
+        return response()->json( ['Cuisines' => $Cuisines->getLocale()], 200);
     }
     public function get_restaurants(Request $request)
     {
