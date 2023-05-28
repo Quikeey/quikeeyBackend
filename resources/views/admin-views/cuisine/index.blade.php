@@ -311,7 +311,7 @@
                         @method('put')
                         <input type="hidden" name="id" id="id" />
                         <input class="form-control" name='name' id="name" required type="text">
-                        <input class="form-control" name='ar_name' id="ar_name" required type="text">
+                        <input class="form-control" name='ar_name' id="ar_name" type="text">
 
                         {{-- <div class="col-md-6 col-lg-6"> --}}
                             <div class="form-group mt-5">
@@ -395,9 +395,10 @@
     </script>
 
     <script>
-        function showMyModal(id, name, image) {
+        function showMyModal(id, name, ar_name, image) {
             $(".modal-body #id").val(id);
             $(".modal-body #name").val(name);
+            $(".modal-body #ar_name").val(ar_name);
             $(".modal-body #viewer2").attr("src", image);
             $('#exampleModal').modal('show');
         }
