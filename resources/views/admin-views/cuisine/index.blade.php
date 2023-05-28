@@ -250,10 +250,13 @@
                             </td>
 
                             <td>
+                                @php
+                                $ar_name = DB::table('translations')->where('translationable_type', 'App\Models\Cuisine')->where('translationable_id', $cu['id'])->where('locale', 'ar')->where('key', 'name')->first();
+                                @endphp
                                 <div class="btn--container">
                                     <a class="btn btn-sm btn--primary btn-outline-primary action-btn"
                                     data-id={{ $cu['id'] }} title="{{ translate('messages.edit') }}"
-                                    onClick="javascript:showMyModal('{{ $cu['id'] }}', '{{ $cu->name }}', '{{ $cu->ar_name }}', '{{ $img_src }}')"
+                                    onClick="javascript:showMyModal('{{ $cu['id'] }}', '{{ $cu->name }}', {{$ar_name}} , {{ $img_src }}')"
                                     ><i class="tio-edit"></i>
                                     </a>
                                     <a class="btn btn-sm btn--danger btn-outline-danger action-btn" href="javascript:"
@@ -306,53 +309,10 @@
                 <div class="modal-body">
                     <form action="{{route('admin.cuisine.update',)}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @php($language = \App\Models\BusinessSetting::where('key', 'language')->first())
-                        @php($language = $language->value ?? null)
-                        @php($default_lang = 'bn')
                         @method('put')
                         <input type="hidden" name="id" id="id" />
-                        @if ($language)
-                        @foreach (json_decode($language) as $lang)
-                            <?php
-                            if (count($cuisine['translations'])) {
-                                $translate = [];
-                                foreach ($cuisine['translations'] as $t) {
-                                    if ($t->locale == $lang && $t->key == 'name') {
-                                        $translate[$lang]['name'] = $t->value;
-                                    }
-                                    if ($t->locale == $lang && $t->key == 'description') {
-                                        $translate[$lang]['description'] = $t->value;
-                                    }
-                                }
-                            }
-                            ?>
-                            <div class="{{ $lang != $default_lang ? 'd-none' : '' }} lang_form"
-                                id="{{ $lang }}-form">
-                                <div class="form-group">
-                                    <label class="input-label"
-                                        for="{{ $lang }}_name">{{ translate('messages.name') }}
-                                    </label>
-                                    <input type="text" name="name[]" id="{{ $lang }}_name" class="form-control"
-                                        placeholder="{{ translate('messages.new_food') }}"
-                                        value="{{ $translate[$lang]['name'] ?? $cuisine['name'] }}"
-                                        {{ $lang == $default_lang ? 'required' : '' }}
-                                        oninvalid="document.getElementById('en-link').click()">
-                                </div>
-                                <input type="hidden" name="lang[]" value="{{ $lang }}">
-                            </div>
-                        @endforeach
-                    @else
-                        <div id="{{ $default_lang }}-form">
-                            <div class="form-group">
-                                <label class="input-label" for="exampleFormControlInput1">{{ translate('messages.name') }}
-                                    (EN)</label>
-                                <input type="text" name="name[]" class="form-control"
-                                    placeholder="{{ translate('messages.new_food') }}" value="{{ $cuisine['name'] }}"
-                                    required>
-                            </div>
-                            <input type="hidden" name="lang[]" value="en">
-                        </div>
-                    @endif
+                        <input class="form-control" name='name' id="name" required type="text">
+                        <input class="form-control" name='ar_name' id="ar_name" type="text">
 
                         {{-- <div class="col-md-6 col-lg-6"> --}}
                             <div class="form-group mt-5">
