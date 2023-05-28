@@ -314,9 +314,9 @@
                         @if ($language)
                         @foreach (json_decode($language) as $lang)
                             <?php
-                            if (count($product['translations'])) {
+                            if (count($cuisine['translations'])) {
                                 $translate = [];
-                                foreach ($product['translations'] as $t) {
+                                foreach ($cuisine['translations'] as $t) {
                                     if ($t->locale == $lang && $t->key == 'name') {
                                         $translate[$lang]['name'] = $t->value;
                                     }
@@ -335,17 +335,11 @@
                                     </label>
                                     <input type="text" name="name[]" id="{{ $lang }}_name" class="form-control"
                                         placeholder="{{ translate('messages.new_food') }}"
-                                        value="{{ $translate[$lang]['name'] ?? $product['name'] }}"
+                                        value="{{ $translate[$lang]['name'] ?? $cuisine['name'] }}"
                                         {{ $lang == $default_lang ? 'required' : '' }}
                                         oninvalid="document.getElementById('en-link').click()">
                                 </div>
                                 <input type="hidden" name="lang[]" value="{{ $lang }}">
-                                <div class="form-group mb-0">
-                                    <label class="input-label"
-                                        for="exampleFormControlInput1">{{ translate('messages.short') }}
-                                        {{ translate('messages.description') }} ({{ strtoupper($lang) }})</label>
-                                    <textarea type="text" name="description[]" class="form-control ckeditor min-height-154px">{!! $translate[$lang]['description'] ?? $product['description'] !!}</textarea>
-                                </div>
                             </div>
                         @endforeach
                     @else
@@ -354,15 +348,10 @@
                                 <label class="input-label" for="exampleFormControlInput1">{{ translate('messages.name') }}
                                     (EN)</label>
                                 <input type="text" name="name[]" class="form-control"
-                                    placeholder="{{ translate('messages.new_food') }}" value="{{ $product['name'] }}"
+                                    placeholder="{{ translate('messages.new_food') }}" value="{{ $cuisine['name'] }}"
                                     required>
                             </div>
                             <input type="hidden" name="lang[]" value="en">
-                            <div class="form-group mb-0">
-                                <label class="input-label" for="exampleFormControlInput1">{{ translate('messages.short') }}
-                                    {{ translate('messages.description') }}</label>
-                                <textarea type="text" name="description[]" class="form-control ckeditor min-height-154px">{!! $product['description'] !!}</textarea>
-                            </div>
                         </div>
                     @endif
 
