@@ -53,7 +53,7 @@
             <div class="col-md-12">
                 <div id="loading" class="initial-hidden">
                     <div class="loading--1">
-                        <img width="200" src="{{ asset('assets/admin/img/loader.gif') }}">
+                        <img width="200" src="{{ asset('public/assets/admin/img/loader.gif') }}">
                     </div>
                 </div>
             </div>
@@ -130,10 +130,10 @@
 
     @stack('script')
     <!-- JS Front -->
-    <script src="{{ asset('assets/admin/js/vendor.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/js/theme.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/js/sweet_alert.js') }}"></script>
-    <script src="{{ asset('assets/admin/js/toastr.js') }}"></script>
+    <script src="{{ asset('public/assets/admin/js/vendor.min.js') }}"></script>
+    <script src="{{ asset('public/assets/admin/js/theme.min.js') }}"></script>
+    <script src="{{ asset('public/assets/admin/js/sweet_alert.js') }}"></script>
+    <script src="{{ asset('public/assets/admin/js/toastr.js') }}"></script>
     {!! Toastr::message() !!}
 
     @if ($errors->any())
@@ -315,7 +315,7 @@
 
     @stack('script_2')
     <audio id="myAudio">
-        <source src="{{ asset('assets/admin/sound/notification.mp3') }}" type="audio/mpeg">
+        <source src="{{ asset('public/assets/admin/sound/notification.mp3') }}" type="audio/mpeg">
     </audio>
 
     <script>
