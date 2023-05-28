@@ -252,7 +252,6 @@
                             <td>
                                 @php
                                 $ar_name = DB::table('translations')->where('translationable_type', 'App\Models\Cuisine')->where('translationable_id', $cu['id'])->where('locale', 'ar')->where('key', 'name')->first();
-                                @endphp
                                 <div class="btn--container">
                                     <a class="btn btn-sm btn--primary btn-outline-primary action-btn"
                                     data-id={{ $cu['id'] }} title="{{ translate('messages.edit') }}"
