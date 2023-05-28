@@ -306,10 +306,65 @@
                 <div class="modal-body">
                     <form action="{{route('admin.cuisine.update',)}}" method="post" enctype="multipart/form-data">
                         @csrf
+                        @php($language = \App\Models\BusinessSetting::where('key', 'language')->first())
+                        @php($language = $language->value ?? null)
+                        @php($default_lang = 'bn')
                         @method('put')
                         <input type="hidden" name="id" id="id" />
-                        <input class="form-control" name='name' id="name" required type="text">
-                        <input class="form-control" name='ar_name' id="ar_name" required type="text">
+                        @if ($language)
+                        @foreach (json_decode($language) as $lang)
+                            <?php
+                            if (count($product['translations'])) {
+                                $translate = [];
+                                foreach ($product['translations'] as $t) {
+                                    if ($t->locale == $lang && $t->key == 'name') {
+                                        $translate[$lang]['name'] = $t->value;
+                                    }
+                                    if ($t->locale == $lang && $t->key == 'description') {
+                                        $translate[$lang]['description'] = $t->value;
+                                    }
+                                }
+                            }
+                            ?>
+                            <div class="{{ $lang != $default_lang ? 'd-none' : '' }} lang_form"
+                                id="{{ $lang }}-form">
+                                <div class="form-group">
+                                    <label class="input-label"
+                                        for="{{ $lang }}_name">{{ translate('messages.name') }}
+                                        ({{ strtoupper($lang) }})
+                                    </label>
+                                    <input type="text" name="name[]" id="{{ $lang }}_name" class="form-control"
+                                        placeholder="{{ translate('messages.new_food') }}"
+                                        value="{{ $translate[$lang]['name'] ?? $product['name'] }}"
+                                        {{ $lang == $default_lang ? 'required' : '' }}
+                                        oninvalid="document.getElementById('en-link').click()">
+                                </div>
+                                <input type="hidden" name="lang[]" value="{{ $lang }}">
+                                <div class="form-group mb-0">
+                                    <label class="input-label"
+                                        for="exampleFormControlInput1">{{ translate('messages.short') }}
+                                        {{ translate('messages.description') }} ({{ strtoupper($lang) }})</label>
+                                    <textarea type="text" name="description[]" class="form-control ckeditor min-height-154px">{!! $translate[$lang]['description'] ?? $product['description'] !!}</textarea>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <div id="{{ $default_lang }}-form">
+                            <div class="form-group">
+                                <label class="input-label" for="exampleFormControlInput1">{{ translate('messages.name') }}
+                                    (EN)</label>
+                                <input type="text" name="name[]" class="form-control"
+                                    placeholder="{{ translate('messages.new_food') }}" value="{{ $product['name'] }}"
+                                    required>
+                            </div>
+                            <input type="hidden" name="lang[]" value="en">
+                            <div class="form-group mb-0">
+                                <label class="input-label" for="exampleFormControlInput1">{{ translate('messages.short') }}
+                                    {{ translate('messages.description') }}</label>
+                                <textarea type="text" name="description[]" class="form-control ckeditor min-height-154px">{!! $product['description'] !!}</textarea>
+                            </div>
+                        </div>
+                    @endif
 
                         {{-- <div class="col-md-6 col-lg-6"> --}}
                             <div class="form-group mt-5">
