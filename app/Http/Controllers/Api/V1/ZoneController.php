@@ -10,6 +10,11 @@ class ZoneController extends Controller
 {
     public function get_zones(Request $request)
     {
-        return response()->json(Zone::where('status',1)->get(), 200);
+        $zones = Zone::where('status',1)->get();
+        if ($zones) {
+            return response()->json(Zone::where('status',1)->get(), 200);
+        }
+
+        return response()->json([], 200);
     }
 }
