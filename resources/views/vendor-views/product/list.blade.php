@@ -179,6 +179,7 @@
                     <thead class="thead-light">
                     <tr>
                         <th>{{ translate('messages.sl') }}</th>
+                        <th class="w-100px">{{translate('messages.qr')}}</th>
                         <th class="w-20p">{{translate('messages.name')}}</th>
                         <th class="w-20p">{{translate('messages.category')}}</th>
                         <th class="text-center">{{translate('messages.price')}}</th>
@@ -192,6 +193,8 @@
                     @foreach($foods as $key=>$food)
                         <tr>
                             <td>{{$key+$foods->firstItem()}}</td>
+                            <td>{!! QrCode::size(100)->generate($food->qr_code) !!}</td>
+
                             <td>
                                 <a class="media align-items-center" href="{{route('vendor.food.view',[$food['id']])}}">
                                     <img class="avatar avatar-lg mr-3" src="{{asset('storage/app/public/product')}}/{{$food['image']}}"

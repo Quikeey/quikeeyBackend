@@ -227,7 +227,7 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th class="w-60px">{{ translate('messages.sl') }}</th>
-                                                                        <th class="w-100px">{{translate('messages.qr')}}}</th>
+                                    <th class="w-100px">{{translate('messages.qr')}}</th>
                                     <th class="w-100px">{{ translate('messages.name') }}</th>
                                     <th class="w-120px">{{ translate('messages.category') }}</th>
                                     <th class="w-120px">{{ translate('messages.restaurant') }}</th>
