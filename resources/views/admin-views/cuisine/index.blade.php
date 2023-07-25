@@ -306,7 +306,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('admin.cuisine.update',)}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('admin.cuisine.update')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <input type="hidden" name="id" id="id" />

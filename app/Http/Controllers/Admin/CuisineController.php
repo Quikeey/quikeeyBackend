@@ -89,9 +89,19 @@ class CuisineController extends Controller
         $cuisine->save();
 
         $translation = Translation::where('translationable_type', 'App\Models\Cuisine')->where('translationable_id', $request->id)->where('locale', 'ar')->where('key', 'name')->first();
-        $translation->update([
-            'value' => $request->ar_name,
-        ]);
+        if($translation) {
+            $translation->update([
+                'value' => $request->ar_name,
+            ]);
+        } else {
+            Translation::create([
+                'translationable_type' => 'App\Models\Cuisine',
+                'translationable_id' => $request->id,
+                'locale' => 'ar',
+                'key' => 'name',
+                'value' => $request->ar_name,
+            ]);
+        }
 
         Toastr::success(translate('messages.Cuisine_updated_successfully'));
         return back();
